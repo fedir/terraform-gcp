@@ -12,6 +12,10 @@ variable "zone" {
   default = "europe-west1-b"
 }
 
+variable "ssh_user" {
+  type = string
+}
+
 variable "cidrs" { default = [] }
 
 variable "environment" {

@@ -54,9 +54,12 @@ resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
   machine_type = var.machine_types[var.environment]
   tags         = ["web", "dev"]
+  metadata = {
+    ssh-keys = "${var.ssh_user}:${file("~/.ssh/id_rsa.pub")}"
+  }
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-minimal-2010"
+      image = "debian-cloud/debian-9"
     }
   }
   metadata_startup_script = "sudo apt-get -y update; sudo apt-get -y install nginx; sudo service nginx start"
@@ -76,9 +79,9 @@ resource "google_compute_instance" "vm_instance" {
 resource "google_compute_firewall" "default" {
  name    = "nginx-firewall"
  network = "terraform-network"
- allow {
+  allow {
    protocol = "tcp"
-   ports    = ["80"]
+   ports    = ["22", "80"]
  }
 }
 
