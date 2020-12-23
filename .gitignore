@@ -2,3 +2,5 @@ gcp.json
 terraform.tfstate.backup
 terraform.tfstate
 .terraform/*
+ip_address.txt
+terraform.tfvars
