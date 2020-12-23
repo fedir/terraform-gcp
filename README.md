@@ -7,7 +7,7 @@
 * Specify it in the terraform.tfvars
 
 ## terraform.tfvars example
-
+```
 project = "YOUR_GCP_PROJECT_ID"
 credentials_file = "YOUR_KEYFILE.json"
 cidrs = [ "10.0.0.0/16", "10.1.0.0/16" ]
@@ -18,7 +18,7 @@ machine_types = {
   prod = "n1-highcpu-32"
 }
 ssh_user = "YOUR_SSH_USER"
-
+```
 
 ## Some useful commands
 
