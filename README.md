@@ -1,5 +1,25 @@
 # Terraform on GCP
 
+## GCP config
+
+* Get service account key https://console.cloud.google.com/apis/credentials/serviceaccountkey with the Project > Editor role
+* Download the JSON key file and put it in the folder
+* Specify it in the terraform.tfvars
+
+## terraform.tfvars example
+
+project = "YOUR_GCP_PROJECT_ID"
+credentials_file = "YOUR_KEYFILE.json"
+cidrs = [ "10.0.0.0/16", "10.1.0.0/16" ]
+region = "YOUR_GCP_ZONE"
+machine_types = {
+  dev  = "f1-micro"
+  test = "n1-highcpu-32"
+  prod = "n1-highcpu-32"
+}
+ssh_user = "YOUR_SSH_USER"
+
+
 ## Some useful commands
 
 ```
