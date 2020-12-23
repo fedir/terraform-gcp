@@ -56,9 +56,10 @@ resource "google_compute_instance" "vm_instance" {
   tags         = ["web", "dev"]
   boot_disk {
     initialize_params {
-      image = "cos-cloud/cos-stable"
+      image = "ubuntu-os-cloud/ubuntu-minimal-2010"
     }
   }
+  metadata_startup_script = "sudo apt-get -y update; sudo apt-get -y install nginx; sudo service nginx start"
   network_interface {
     network = google_compute_network.vpc_network.name
     access_config {
@@ -69,6 +70,19 @@ resource "google_compute_instance" "vm_instance" {
     command = "echo ${google_compute_instance.vm_instance.name}:  ${google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip} >> ip_address.txt"
   }
 }
+
+## Firewall
+
+resource "google_compute_firewall" "default" {
+ name    = "nginx-firewall"
+ network = "terraform-network"
+ allow {
+   protocol = "tcp"
+   ports    = ["80"]
+ }
+}
+
+## Output
 
 output "ip" {
   value = google_compute_address.vm_static_ip.address
